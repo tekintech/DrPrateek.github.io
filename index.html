@@ -4,8 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FNU Prateek — Neuroscientist & Medical Researcher</title>
+
+<!-- META TAGS for LinkedIn / WhatsApp / Twitter preview -->
+<meta name="description" content="FNU Prateek — 3rd-year MBBS student at AIIMS Rishikesh. Medical researcher in neurology, neurodegeneration, and computational neuroscience. Publications in Stroke, Circulation, Annals of Oncology and more.">
+<meta name="author" content="FNU Prateek">
+<meta name="keywords" content="FNU Prateek, AIIMS Rishikesh, neurology, neuroscience, medical researcher, MBBS, computational neuroscience, systematic review, meta-analysis">
+<meta property="og:title" content="FNU Prateek — Medical Researcher & Computational Neuroscientist">
+<meta property="og:description" content="3rd-year MBBS at AIIMS Rishikesh. Published in Stroke, Circulation, Annals of Oncology. Presenter at AAN, EAN, WCN, AHA, ESMO. Co-EIC of IJMS.">
+<meta property="og:image" content="https://tekintech.github.io/DrPrateek.github.io/preview.jpg">
+<meta property="og:url" content="https://tekintech.github.io/DrPrateek.github.io/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FNU Prateek — Medical Researcher">
+<meta name="twitter:description" content="MBBS student at AIIMS Rishikesh. Neurology researcher. Publications in Stroke, Circulation, Annals of Oncology.">
+
+<!-- Google Analytics — replace G-XXXXXXXXXX with your Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-XXXXXXXXXX");
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
   :root {
     --cream: #F5F0E8;
@@ -17,7 +41,16 @@
     --light: #EDE8DE;
     --white: #FDFAF5;
   }
-
+  [data-theme="dark"] {
+    --cream: #141210;
+    --ink: #F0EBE3;
+    --rust: #E06840;
+    --sage: #6DAF62;
+    --gold: #D4AA3A;
+    --dusty: #A89888;
+    --light: #1E1A17;
+    --white: #1C1814;
+  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
@@ -26,8 +59,8 @@
     font-family: "DM Sans", sans-serif;
     font-weight: 300;
     overflow-x: hidden;
+    transition: background 0.3s, color 0.3s;
   }
-
   body::before {
     content: "";
     position: fixed; inset: 0;
@@ -35,20 +68,23 @@
     pointer-events: none; z-index: 1000; opacity: 0.4;
   }
 
-  /* NAV */
+  /* ── NAV ── */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
     padding: 1.5rem 4rem;
     display: flex; justify-content: space-between; align-items: center;
     background: rgba(245,240,232,0.88);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(26,20,16,0.08);
+    transition: background 0.3s;
   }
+  [data-theme="dark"] nav { background: rgba(20,18,16,0.92); }
   .nav-logo {
     font-family: "Playfair Display", serif;
     font-size: 1.1rem; font-weight: 600; letter-spacing: 0.02em;
     color: var(--ink); text-decoration: none;
   }
+  .nav-right { display: flex; align-items: center; gap: 2.5rem; }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
   .nav-links a {
     font-family: "DM Mono", monospace;
@@ -57,7 +93,48 @@
   }
   .nav-links a:hover { color: var(--rust); }
 
-  /* HERO */
+  /* theme toggle */
+  .theme-btn {
+    background: none; border: 1.5px solid rgba(26,20,16,0.2);
+    width: 36px; height: 36px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: var(--dusty);
+    transition: all 0.2s; border-color: var(--dusty);
+  }
+  .theme-btn:hover { border-color: var(--rust); color: var(--rust); }
+
+  /* hamburger */
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--ink); transition: all 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* mobile menu */
+  .mobile-menu {
+    display: none; position: fixed;
+    top: 70px; left: 0; right: 0; z-index: 190;
+    background: var(--cream);
+    border-bottom: 1px solid rgba(26,20,16,0.1);
+    padding: 1.5rem 2rem;
+    flex-direction: column; gap: 1.2rem;
+  }
+  .mobile-menu.open { display: flex; }
+  [data-theme="dark"] .mobile-menu { background: var(--cream); }
+  .mobile-menu a {
+    font-family: "DM Mono", monospace;
+    font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--dusty); text-decoration: none; transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--rust); }
+
+  /* ── HERO ── */
   .hero {
     min-height: 100vh;
     display: grid; grid-template-columns: 1fr 1fr;
@@ -65,8 +142,7 @@
   }
   .hero-left {
     display: flex; flex-direction: column; justify-content: center;
-    padding: 6rem 4rem 6rem 6rem;
-    position: relative; z-index: 2;
+    padding: 6rem 4rem 6rem 6rem; position: relative; z-index: 2;
   }
   .hero-eyebrow {
     font-family: "DM Mono", monospace;
@@ -75,20 +151,17 @@
     display: flex; align-items: center; gap: 0.75rem;
   }
   .hero-eyebrow::before {
-    content: ""; display: inline-block;
-    width: 2rem; height: 1px; background: var(--rust);
+    content: ""; display: inline-block; width: 2rem; height: 1px; background: var(--rust);
   }
   h1 {
     font-family: "Playfair Display", serif;
-    font-size: clamp(3rem,5vw,5.5rem);
-    font-weight: 800; line-height: 1.02;
+    font-size: clamp(3rem,5vw,5.5rem); font-weight: 800; line-height: 1.02;
     color: var(--ink); margin-bottom: 0.5rem;
   }
   h1 em { font-style: italic; color: var(--rust); }
   .hero-subtitle {
     font-family: "Playfair Display", serif;
-    font-size: clamp(1rem,1.5vw,1.3rem);
-    font-weight: 400; font-style: italic;
+    font-size: clamp(1rem,1.5vw,1.3rem); font-weight: 400; font-style: italic;
     color: var(--dusty); margin-bottom: 2rem; line-height: 1.6;
   }
   .hero-desc {
@@ -98,23 +171,28 @@
   .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
   .btn-primary {
     display: inline-flex; align-items: center; gap: 0.5rem;
-    padding: 0.85rem 2rem;
-    background: var(--ink); color: var(--cream);
-    font-family: "DM Mono", monospace;
-    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
-    text-decoration: none; transition: all 0.25s;
-    border: 1.5px solid var(--ink);
+    padding: 0.85rem 2rem; background: var(--ink); color: var(--cream);
+    font-family: "DM Mono", monospace; font-size: 0.72rem;
+    letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+    transition: all 0.25s; border: 1.5px solid var(--ink);
   }
   .btn-primary:hover { background: var(--rust); border-color: var(--rust); }
   .btn-outline {
     display: inline-flex; align-items: center; gap: 0.5rem;
-    padding: 0.85rem 2rem;
-    background: transparent; color: var(--ink);
-    font-family: "DM Mono", monospace;
-    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
-    text-decoration: none; border: 1.5px solid var(--ink); transition: all 0.25s;
+    padding: 0.85rem 2rem; background: transparent; color: var(--ink);
+    font-family: "DM Mono", monospace; font-size: 0.72rem;
+    letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+    border: 1.5px solid var(--ink); transition: all 0.25s;
   }
   .btn-outline:hover { background: var(--ink); color: var(--cream); }
+  .btn-cv {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.85rem 2rem; background: var(--rust); color: var(--white);
+    font-family: "DM Mono", monospace; font-size: 0.72rem;
+    letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+    border: 1.5px solid var(--rust); transition: all 0.25s;
+  }
+  .btn-cv:hover { background: transparent; color: var(--rust); }
 
   .hero-right {
     position: relative; display: flex;
@@ -126,9 +204,7 @@
     bottom: 0; left: 0; right: 0; height: 70%;
     background: var(--light); z-index: 0;
   }
-  .hero-photo-frame {
-    position: relative; z-index: 2; width: 420px; max-width: 90%;
-  }
+  .hero-photo-frame { position: relative; z-index: 2; width: 420px; max-width: 90%; }
   .hero-photo-frame::before {
     content: ""; position: absolute;
     top: 1.5rem; left: 1.5rem; right: -1.5rem; bottom: -1.5rem;
@@ -142,13 +218,11 @@
   .hero-bg-text {
     position: absolute; top: 50%; right: -2rem;
     transform: translateY(-50%) rotate(90deg);
-    font-family: "Playfair Display", serif;
-    font-size: 10rem; font-weight: 800;
-    color: rgba(26,20,16,0.04);
-    white-space: nowrap; user-select: none; z-index: 0;
+    font-family: "Playfair Display", serif; font-size: 10rem; font-weight: 800;
+    color: rgba(26,20,16,0.04); white-space: nowrap; user-select: none; z-index: 0;
   }
 
-  /* STATS BAR */
+  /* ── STATS BAR ── */
   .stats-bar {
     background: var(--ink); color: var(--cream);
     padding: 2.5rem 6rem;
@@ -156,245 +230,182 @@
   }
   .stat-item { text-align: center; }
   .stat-num {
-    font-family: "Playfair Display", serif;
-    font-size: 2.8rem; font-weight: 800;
+    font-family: "Playfair Display", serif; font-size: 2.8rem; font-weight: 800;
     color: var(--gold); line-height: 1;
   }
   .stat-label {
-    font-family: "DM Mono", monospace;
-    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    font-family: "DM Mono", monospace; font-size: 0.65rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
     color: rgba(245,240,232,0.5); margin-top: 0.4rem;
   }
   .stat-divider { width: 1px; height: 3rem; background: rgba(245,240,232,0.15); }
 
-  /* SECTIONS */
+  /* ── SECTIONS ── */
   section { padding: 7rem 6rem; }
   .section-tag {
-    font-family: "DM Mono", monospace;
-    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--rust); margin-bottom: 1rem;
-    display: flex; align-items: center; gap: 0.75rem;
+    font-family: "DM Mono", monospace; font-size: 0.68rem;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust);
+    margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;
   }
   .section-tag::before {
-    content: ""; display: inline-block;
-    width: 2rem; height: 1px; background: var(--rust);
+    content: ""; display: inline-block; width: 2rem; height: 1px; background: var(--rust);
   }
   h2 {
     font-family: "Playfair Display", serif;
-    font-size: clamp(2rem,3.5vw,3.2rem);
-    font-weight: 700; line-height: 1.15;
+    font-size: clamp(2rem,3.5vw,3.2rem); font-weight: 700; line-height: 1.15;
     color: var(--ink); margin-bottom: 3.5rem;
   }
   h2 em { font-style: italic; color: var(--rust); }
 
-  /* ABOUT */
-  #about {
-    background: var(--white);
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 6rem; align-items: start;
-  }
-  .about-text p {
-    font-size: 1rem; line-height: 1.9; color: var(--dusty); margin-bottom: 1.5rem;
-  }
+  /* ── ABOUT ── */
+  #about { background: var(--white); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .about-text p { font-size: 1rem; line-height: 1.9; color: var(--dusty); margin-bottom: 1.5rem; }
   .about-text p strong { color: var(--ink); font-weight: 500; }
   .about-details { display: flex; flex-direction: column; gap: 2rem; }
   .detail-card { border-left: 3px solid var(--rust); padding-left: 1.5rem; }
   .detail-card h4 {
-    font-family: "DM Mono", monospace;
-    font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--dusty); margin-bottom: 0.4rem;
+    font-family: "DM Mono", monospace; font-size: 0.68rem;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--dusty); margin-bottom: 0.4rem;
   }
   .detail-card p { font-size: 0.95rem; color: var(--ink); line-height: 1.5; }
   .detail-card a { color: var(--rust); text-decoration: none; }
   .detail-card a:hover { text-decoration: underline; }
   .skills-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
   .skill-tag {
-    font-family: "DM Mono", monospace;
-    font-size: 0.68rem; letter-spacing: 0.05em;
-    padding: 0.4rem 0.9rem;
-    border: 1px solid rgba(26,20,16,0.2);
+    font-family: "DM Mono", monospace; font-size: 0.68rem; letter-spacing: 0.05em;
+    padding: 0.4rem 0.9rem; border: 1px solid rgba(26,20,16,0.2);
     color: var(--dusty); transition: all 0.2s; cursor: default;
   }
   .skill-tag:hover { border-color: var(--rust); color: var(--rust); }
 
-  /* RESEARCH */
+  /* ── RESEARCH ── */
   #research { background: var(--cream); }
-  .pub-list { display: flex; flex-direction: column; gap: 0; }
+  .pub-list { display: flex; flex-direction: column; }
   .pub-item {
     display: grid; grid-template-columns: auto 1fr;
     gap: 0 2rem; padding: 2rem 0;
     border-bottom: 1px solid rgba(26,20,16,0.08);
   }
   .pub-item:first-child { border-top: 1px solid rgba(26,20,16,0.08); }
-  .pub-num {
-    font-family: "DM Mono", monospace;
-    font-size: 0.7rem; color: var(--rust);
-    padding-top: 0.3rem; min-width: 2rem;
-  }
-  .pub-venue {
-    font-family: "DM Mono", monospace;
-    font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--rust); margin-bottom: 0.4rem;
-  }
-  .pub-title {
-    font-family: "Playfair Display", serif;
-    font-size: 1.05rem; font-weight: 600; line-height: 1.4;
-    color: var(--ink); margin-bottom: 0.4rem;
-  }
-  .pub-authors {
-    font-size: 0.85rem; color: var(--dusty);
-    line-height: 1.5; margin-bottom: 0.6rem;
-  }
+  .pub-num { font-family: "DM Mono", monospace; font-size: 0.7rem; color: var(--rust); padding-top: 0.3rem; min-width: 2rem; }
+  .pub-venue { font-family: "DM Mono", monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rust); margin-bottom: 0.4rem; }
+  .pub-title { font-family: "Playfair Display", serif; font-size: 1.05rem; font-weight: 600; line-height: 1.4; color: var(--ink); margin-bottom: 0.4rem; }
+  .pub-authors { font-size: 0.85rem; color: var(--dusty); line-height: 1.5; margin-bottom: 0.6rem; }
   .pub-authors strong { color: var(--ink); font-weight: 500; }
-  .pub-doi {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    font-family: "DM Mono", monospace;
-    font-size: 0.65rem; letter-spacing: 0.04em;
-    color: var(--sage); text-decoration: none;
-    border-bottom: 1px solid transparent; transition: border-color 0.2s;
-  }
+  .pub-doi { display: inline-flex; align-items: center; gap: 0.4rem; font-family: "DM Mono", monospace; font-size: 0.65rem; letter-spacing: 0.04em; color: var(--sage); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
   .pub-doi:hover { border-color: var(--sage); }
-  .pub-status {
-    display: inline-flex; align-items: center; gap: 0.3rem;
-    font-family: "DM Mono", monospace;
-    font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 0.2rem 0.6rem;
-    background: rgba(184,150,46,0.1);
-    color: var(--gold); border: 1px solid rgba(184,150,46,0.3);
-  }
+  .pub-status { display: inline-flex; align-items: center; gap: 0.3rem; font-family: "DM Mono", monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; background: rgba(184,150,46,0.1); color: var(--gold); border: 1px solid rgba(184,150,46,0.3); }
 
-  /* CONFERENCES */
+  /* ── CONFERENCES ── */
   #conferences { background: var(--light); }
   .conf-timeline { position: relative; padding-left: 3rem; }
-  .conf-timeline::before {
-    content: ""; position: absolute;
-    left: 0; top: 0.5rem; bottom: 0;
-    width: 1px; background: rgba(26,20,16,0.15);
-  }
-  .conf-item {
-    position: relative; margin-bottom: 2.5rem;
-    padding-bottom: 2.5rem;
-    border-bottom: 1px solid rgba(26,20,16,0.07);
-  }
+  .conf-timeline::before { content: ""; position: absolute; left: 0; top: 0.5rem; bottom: 0; width: 1px; background: rgba(26,20,16,0.15); }
+  .conf-item { position: relative; margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(26,20,16,0.07); }
   .conf-item:last-child { border-bottom: none; margin-bottom: 0; }
-  .conf-item::before {
-    content: ""; position: absolute;
-    left: -3rem; top: 0.5rem;
-    width: 9px; height: 9px; border-radius: 50%;
-    background: var(--rust); border: 2px solid var(--cream);
-    box-shadow: 0 0 0 1px var(--rust);
-  }
-  .conf-date {
-    font-family: "DM Mono", monospace;
-    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--dusty); margin-bottom: 0.4rem;
-  }
-  .conf-name {
-    font-family: "Playfair Display", serif;
-    font-size: 1.15rem; font-weight: 600;
-    color: var(--ink); margin-bottom: 0.4rem;
-  }
+  .conf-item::before { content: ""; position: absolute; left: -3rem; top: 0.5rem; width: 9px; height: 9px; border-radius: 50%; background: var(--rust); border: 2px solid var(--cream); box-shadow: 0 0 0 1px var(--rust); }
+  .conf-date { font-family: "DM Mono", monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dusty); margin-bottom: 0.4rem; }
+  .conf-name { font-family: "Playfair Display", serif; font-size: 1.15rem; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; }
   .conf-detail { font-size: 0.88rem; color: var(--dusty); }
   .conf-detail a { color: var(--sage); text-decoration: none; }
   .conf-detail a:hover { text-decoration: underline; }
-  .conf-badge {
-    display: inline-flex; align-items: center; gap: 0.3rem;
-    margin-top: 0.6rem; padding: 0.25rem 0.75rem;
-    background: var(--rust); color: white;
-    font-family: "DM Mono", monospace;
-    font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
-  }
+  .conf-badge { display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 0.6rem; padding: 0.25rem 0.75rem; background: var(--rust); color: white; font-family: "DM Mono", monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; }
 
-  /* LEADERSHIP */
-  #leadership {
-    background: var(--white);
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 6rem; align-items: start;
+  /* ── TALKS & MEDIA ── */
+  #talks { background: var(--white); }
+  .talks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 2rem; }
+  .talk-card { border: 1px solid rgba(26,20,16,0.1); padding: 2rem; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; background: var(--cream); }
+  .talk-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(26,20,16,0.08); }
+  .talk-card::before { content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--rust); transform: scaleY(0); transition: transform 0.25s; transform-origin: bottom; }
+  .talk-card:hover::before { transform: scaleY(1); }
+  .talk-type { font-family: "DM Mono", monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rust); margin-bottom: 0.5rem; }
+  .talk-title { font-family: "Playfair Display", serif; font-size: 1rem; font-weight: 600; color: var(--ink); line-height: 1.4; margin-bottom: 0.5rem; }
+  .talk-where { font-size: 0.85rem; color: var(--dusty); margin-bottom: 0.5rem; }
+  .talk-badge { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.2rem 0.6rem; background: rgba(184,150,46,0.1); color: var(--gold); border: 1px solid rgba(184,150,46,0.3); font-family: "DM Mono", monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ── INSTAGRAM GALLERY ── */
+  #gallery { background: var(--light); }
+  .gallery-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+  .gallery-header h2 { margin-bottom: 0; }
+  .ig-follow-btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.75rem 1.5rem; background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+    color: white; font-family: "DM Mono", monospace; font-size: 0.68rem;
+    letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+    transition: opacity 0.2s;
   }
+  .ig-follow-btn:hover { opacity: 0.85; }
+  .gallery-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; }
+  .gallery-item {
+    aspect-ratio: 1/1; overflow: hidden; position: relative;
+    cursor: pointer; background: var(--light);
+  }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; filter: sepia(5%) contrast(1.02); }
+  .gallery-item:hover img { transform: scale(1.06); }
+  .gallery-item-overlay {
+    position: absolute; inset: 0; background: rgba(26,20,16,0.55);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s; color: white; text-align: center; padding: 1rem;
+  }
+  .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+  .gallery-item-overlay span { font-family: "DM Mono", monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.4rem; }
+  .gallery-placeholder {
+    aspect-ratio: 1/1; background: var(--cream);
+    border: 2px dashed rgba(26,20,16,0.12);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: var(--dusty); font-family: "DM Mono", monospace; font-size: 0.65rem;
+    letter-spacing: 0.1em; text-transform: uppercase; text-align: center; padding: 1rem; gap: 0.5rem;
+  }
+  .gallery-placeholder .ph-icon { font-size: 1.8rem; opacity: 0.3; }
+
+  /* ── BLOG ── */
+  #blog { background: var(--cream); }
+  .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 2rem; }
+  .blog-card { background: var(--white); border: 1px solid rgba(26,20,16,0.08); padding: 2.5rem; transition: transform 0.2s, box-shadow 0.2s; }
+  .blog-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(26,20,16,0.07); }
+  .blog-date { font-family: "DM Mono", monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dusty); margin-bottom: 0.75rem; }
+  .blog-title { font-family: "Playfair Display", serif; font-size: 1.15rem; font-weight: 600; color: var(--ink); line-height: 1.4; margin-bottom: 0.75rem; }
+  .blog-excerpt { font-size: 0.88rem; color: var(--dusty); line-height: 1.75; margin-bottom: 1.2rem; }
+  .blog-tag { font-family: "DM Mono", monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; border: 1px solid rgba(26,20,16,0.15); color: var(--dusty); }
+  .blog-read { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1rem; font-family: "DM Mono", monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rust); text-decoration: none; transition: gap 0.2s; }
+  .blog-read:hover { gap: 0.7rem; }
+  .blog-coming { text-align: center; padding: 4rem 2rem; border: 2px dashed rgba(26,20,16,0.1); }
+  .blog-coming p { font-family: "Playfair Display", serif; font-style: italic; font-size: 1.1rem; color: var(--dusty); }
+
+  /* ── LEADERSHIP ── */
+  #leadership { background: var(--white); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
   .leadership-list { display: flex; flex-direction: column; gap: 1.5rem; }
-  .role-item {
-    display: flex; gap: 1.5rem; align-items: flex-start;
-    padding-bottom: 1.5rem; border-bottom: 1px solid rgba(26,20,16,0.07);
-  }
-  .role-icon {
-    width: 44px; height: 44px;
-    border: 1.5px solid var(--rust);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; font-size: 1.1rem;
-  }
-  .role-title {
-    font-family: "Playfair Display", serif;
-    font-size: 1rem; font-weight: 600; color: var(--ink); line-height: 1.3;
-  }
-  .role-org {
-    font-family: "DM Mono", monospace;
-    font-size: 0.65rem; letter-spacing: 0.1em;
-    color: var(--rust); text-transform: uppercase; margin: 0.2rem 0 0.4rem;
-  }
+  .role-item { display: flex; gap: 1.5rem; align-items: flex-start; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(26,20,16,0.07); }
+  .role-icon { width: 44px; height: 44px; border: 1.5px solid var(--rust); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.1rem; }
+  .role-title { font-family: "Playfair Display", serif; font-size: 1rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .role-org { font-family: "DM Mono", monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--rust); text-transform: uppercase; margin: 0.2rem 0 0.4rem; }
   .role-desc { font-size: 0.85rem; color: var(--dusty); line-height: 1.6; }
-
-  .memberships-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
-  }
-  .member-card {
-    padding: 1.2rem 1.5rem;
-    border: 1px solid rgba(26,20,16,0.1);
-    background: var(--cream);
-  }
-  .member-acronym {
-    font-family: "Playfair Display", serif;
-    font-size: 1.4rem; font-weight: 800;
-    color: var(--rust); line-height: 1; margin-bottom: 0.3rem;
-  }
+  .memberships-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .member-card { padding: 1.2rem 1.5rem; border: 1px solid rgba(26,20,16,0.1); background: var(--cream); }
+  .member-acronym { font-family: "Playfair Display", serif; font-size: 1.4rem; font-weight: 800; color: var(--rust); line-height: 1; margin-bottom: 0.3rem; }
   .member-full { font-size: 0.78rem; color: var(--dusty); line-height: 1.4; }
+  .profiles-col { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
+  .profiles-col a { font-family: "DM Mono", monospace; font-size: 0.78rem; color: var(--dusty); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s; }
+  .profiles-col a:hover { color: var(--rust); }
 
-  /* CONTACT */
-  #contact {
-    background: var(--ink); color: var(--cream);
-    padding: 7rem 6rem; text-align: center;
-  }
+  /* ── CONTACT ── */
+  #contact { background: var(--ink); color: var(--cream); padding: 7rem 6rem; text-align: center; }
   #contact .section-tag { color: var(--gold); justify-content: center; }
   #contact .section-tag::before { background: var(--gold); }
   #contact h2 { color: var(--cream); text-align: center; margin-bottom: 1.5rem; }
   #contact h2 em { color: var(--gold); }
-  #contact p {
-    font-size: 1.05rem; color: rgba(245,240,232,0.6);
-    max-width: 560px; margin: 0 auto 3rem; line-height: 1.8;
-  }
-  .contact-email-link {
-    font-family: "Playfair Display", serif;
-    font-size: 1.8rem; font-style: italic;
-    color: var(--gold); text-decoration: none;
-    display: block; margin-bottom: 2.5rem;
-    transition: opacity 0.2s;
-  }
+  #contact > p { font-size: 1.05rem; color: rgba(245,240,232,0.6); max-width: 560px; margin: 0 auto 3rem; line-height: 1.8; }
+  .contact-email-link { font-family: "Playfair Display", serif; font-size: 1.8rem; font-style: italic; color: var(--gold); text-decoration: none; display: block; margin-bottom: 2.5rem; transition: opacity 0.2s; }
   .contact-email-link:hover { opacity: 0.8; }
   .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
-  .contact-link {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    padding: 0.8rem 1.8rem;
-    border: 1px solid rgba(245,240,232,0.2);
-    color: rgba(245,240,232,0.7);
-    font-family: "DM Mono", monospace;
-    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
-    text-decoration: none; transition: all 0.25s;
-  }
+  .contact-link { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.8rem; border: 1px solid rgba(245,240,232,0.2); color: rgba(245,240,232,0.7); font-family: "DM Mono", monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.25s; }
   .contact-link:hover { border-color: var(--gold); color: var(--gold); }
+  .contact-link.ig:hover { border-color: #e6683c; color: #e6683c; }
 
-  footer {
-    background: #110D0A; padding: 2rem 6rem;
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  footer p {
-    font-family: "DM Mono", monospace;
-    font-size: 0.62rem; letter-spacing: 0.1em; color: rgba(245,240,232,0.3);
-  }
+  footer { background: #110D0A; padding: 2rem 6rem; display: flex; justify-content: space-between; align-items: center; }
+  footer p { font-family: "DM Mono", monospace; font-size: 0.62rem; letter-spacing: 0.1em; color: rgba(245,240,232,0.3); }
 
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
   .fade-up { opacity: 0; animation: fadeUp 0.7s ease forwards; }
   .delay-1 { animation-delay: 0.1s; }
   .delay-2 { animation-delay: 0.25s; }
@@ -402,32 +413,60 @@
   .delay-4 { animation-delay: 0.55s; }
   .delay-5 { animation-delay: 0.7s; }
 
-  /* RESPONSIVE */
+  /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    nav { padding: 1.5rem 2rem; }
+    nav { padding: 1.2rem 2rem; }
     .nav-links { display: none; }
+    .hamburger { display: flex; }
     .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 5rem 2.5rem 3rem; }
     .hero-right { display: none; }
     section { padding: 5rem 2.5rem; }
-    .stats-bar { padding: 2rem; flex-wrap: wrap; }
-    #about, #leadership { grid-template-columns: 1fr; }
+    .stats-bar { padding: 2rem; flex-wrap: wrap; gap: 1.5rem; }
+    #about, #leadership { grid-template-columns: 1fr; gap: 3rem; }
+    .gallery-grid { grid-template-columns: repeat(2,1fr); }
     footer { flex-direction: column; gap: 0.5rem; text-align: center; }
     #contact { padding: 5rem 2.5rem; }
+  }
+  @media (max-width: 500px) {
+    .gallery-grid { grid-template-columns: repeat(2,1fr); }
+    .hero-ctas { flex-direction: column; }
+    .btn-primary, .btn-outline, .btn-cv { width: 100%; justify-content: center; }
   }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">FNU Prateek</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#research">Research</a></li>
-    <li><a href="#conferences">Conferences</a></li>
-    <li><a href="#leadership">Leadership</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#talks">Talks</a></li>
+      <li><a href="#conferences">Conferences</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">🌙</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#research" onclick="closeMenu()">Research</a>
+  <a href="#talks" onclick="closeMenu()">Talks</a>
+  <a href="#conferences" onclick="closeMenu()">Conferences</a>
+  <a href="#gallery" onclick="closeMenu()">Gallery</a>
+  <a href="#blog" onclick="closeMenu()">Blog</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -442,6 +481,7 @@
     </p>
     <div class="hero-ctas fade-up delay-5">
       <a href="#research" class="btn-primary">View Research →</a>
+      <a href="https://www.canva.com/design/DAGZRxI2eHA/bEr03oTViNbEnFg1bvhqKg/view?utm_content=DAGZRxI2eHA&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h556ca4d0bd" target="_blank" class="btn-cv">⬇ Download CV</a>
       <a href="https://scholar.google.com/citations?user=y6ZojxwAAAAJ&hl=en&authuser=5" target="_blank" class="btn-outline">Google Scholar</a>
     </div>
   </div>
@@ -471,21 +511,9 @@
   <div class="about-text">
     <div class="section-tag">About</div>
     <h2>Bridging Clinical<br><em>&amp; Computational</em><br>Neuroscience</h2>
-    <p>
-      I am a medical student at <strong>AIIMS Rishikesh</strong> with a focused trajectory in neurology,
-      neurodegeneration, and data-driven neuroscience. My research spans observational studies,
-      systematic reviews, network meta-analyses, and large-scale bibliometric workflows.
-    </p>
-    <p>
-      An active contributor to international neurology collaborations, I have presented original research
-      at AAN, EAN, WCN, AHA, and ESMO. I currently serve as <strong>Co-Student Editor-in-Chief</strong>
-      of the International Journal of Medical Students (IJMS).
-    </p>
-    <p>
-      My technical stack includes R (bibliometrix, RevMan), Python, and bioinformatics pipelines.
-      Trained in computational neuroscience through Neuromatch Academy and the Harvard-affiliated
-      Aspire Leaders Program.
-    </p>
+    <p>I am a medical student at <strong>AIIMS Rishikesh</strong> with a focused trajectory in neurology, neurodegeneration, and data-driven neuroscience. My research spans observational studies, systematic reviews, network meta-analyses, and large-scale bibliometric workflows.</p>
+    <p>An active contributor to international neurology collaborations, I have presented original research at AAN, EAN, WCN, AHA, and ESMO. I currently serve as <strong>Co-Student Editor-in-Chief</strong> of the International Journal of Medical Students (IJMS).</p>
+    <p>My technical stack includes R (bibliometrix, RevMan), Python, and bioinformatics pipelines. Trained in computational neuroscience through Neuromatch Academy and the Harvard-affiliated Aspire Leaders Program.</p>
     <div class="skills-grid">
       <span class="skill-tag">Systematic Review</span>
       <span class="skill-tag">Network Meta-Analysis</span>
@@ -500,30 +528,12 @@
     </div>
   </div>
   <div class="about-details">
-    <div class="detail-card">
-      <h4>Current Position</h4>
-      <p>3rd Professional MBBS Student<br>AIIMS Rishikesh, India</p>
-    </div>
-    <div class="detail-card">
-      <h4>Email</h4>
-      <p><a href="mailto:prateek.medsci@gmail.com">prateek.medsci@gmail.com</a></p>
-    </div>
-    <div class="detail-card">
-      <h4>Editorial Role</h4>
-      <p>Co-Student Editor-in-Chief<br>International Journal of Medical Students (IJMS)</p>
-    </div>
-    <div class="detail-card">
-      <h4>Peer Review</h4>
-      <p>Neurology® Journal · BMJ Digital Health &amp; AI · Cureus</p>
-    </div>
-    <div class="detail-card">
-      <h4>Training</h4>
-      <p>Neuromatch Academy · ThinkNeuro SRI · Aspire Leaders Program (Harvard-affiliated)</p>
-    </div>
-    <div class="detail-card">
-      <h4>Awards</h4>
-      <p>IMA-MSN National Chairman's Appreciation Award 2025 · Best Podium Presentation, EMPARV 2025</p>
-    </div>
+    <div class="detail-card"><h4>Current Position</h4><p>3rd Professional MBBS Student<br>AIIMS Rishikesh, India</p></div>
+    <div class="detail-card"><h4>Email</h4><p><a href="mailto:prateek.medsci@gmail.com">prateek.medsci@gmail.com</a></p></div>
+    <div class="detail-card"><h4>Editorial Role</h4><p>Co-Student Editor-in-Chief<br>International Journal of Medical Students (IJMS)</p></div>
+    <div class="detail-card"><h4>Peer Review</h4><p>Neurology® Journal · BMJ Digital Health &amp; AI · Cureus</p></div>
+    <div class="detail-card"><h4>Training</h4><p>Neuromatch Academy · ThinkNeuro SRI · Aspire Leaders Program (Harvard-affiliated)</p></div>
+    <div class="detail-card"><h4>Awards</h4><p>IMA-MSN National Chairman's Appreciation Award 2025 · Best Podium Presentation, EMPARV 2025</p></div>
   </div>
 </section>
 
@@ -532,7 +542,6 @@
   <div class="section-tag">Research</div>
   <h2>Selected <em>Publications</em><br>&amp; Ongoing Projects</h2>
   <div class="pub-list">
-
     <div class="pub-item">
       <div class="pub-num">01</div>
       <div>
@@ -542,7 +551,6 @@
         <a href="https://doi.org/10.1161/str.57.suppl_1.WP055" target="_blank" class="pub-doi">↗ doi.org/10.1161/str.57.suppl_1.WP055</a>
       </div>
     </div>
-
     <div class="pub-item">
       <div class="pub-num">02</div>
       <div>
@@ -552,7 +560,6 @@
         <a href="https://doi.org/10.1161/circ.152.suppl_3.4370746" target="_blank" class="pub-doi">↗ doi.org/10.1161/circ.152.suppl_3.4370746</a>
       </div>
     </div>
-
     <div class="pub-item">
       <div class="pub-num">03</div>
       <div>
@@ -562,7 +569,6 @@
         <a href="https://doi.org/10.1016/j.jns.2025.125340" target="_blank" class="pub-doi">↗ doi.org/10.1016/j.jns.2025.125340</a>
       </div>
     </div>
-
     <div class="pub-item">
       <div class="pub-num">04</div>
       <div>
@@ -572,7 +578,6 @@
         <a href="https://doi.org/10.1016/j.annonc.2025.08.1293" target="_blank" class="pub-doi">↗ doi.org/10.1016/j.annonc.2025.08.1293</a>
       </div>
     </div>
-
     <div class="pub-item">
       <div class="pub-num">05</div>
       <div>
@@ -582,7 +587,6 @@
         <span class="pub-status">● Under Review</span>
       </div>
     </div>
-
     <div class="pub-item">
       <div class="pub-num">06</div>
       <div>
@@ -592,7 +596,6 @@
         <span class="pub-status">● In Progress</span>
       </div>
     </div>
-
     <div class="pub-item">
       <div class="pub-num">07</div>
       <div>
@@ -602,7 +605,6 @@
         <span class="pub-status">● Computational Evaluation Complete</span>
       </div>
     </div>
-
     <div class="pub-item">
       <div class="pub-num">08</div>
       <div>
@@ -611,7 +613,50 @@
         <div class="pub-authors">In: <em>Robotics and IoT Synergy in Next-Generation Healthcare</em></div>
       </div>
     </div>
+  </div>
+</section>
 
+<!-- TALKS & MEDIA -->
+<section id="talks">
+  <div class="section-tag">Talks &amp; Media</div>
+  <h2>Presentations &amp;<em> Awards</em></h2>
+  <div class="talks-grid">
+    <div class="talk-card">
+      <div class="talk-type">Podium Presentation</div>
+      <div class="talk-title">Emergency Medicine Research — Podium Talk</div>
+      <div class="talk-where">International Emergency Medicine Conference (EMPARV 2025) · AIIMS Rishikesh, Jul 2025</div>
+      <span class="talk-badge">★ Best Podium Presentation</span>
+    </div>
+    <div class="talk-card">
+      <div class="talk-type">Oral Presentation · EAN 2025</div>
+      <div class="talk-title">8 Oral &amp; Poster Presentations</div>
+      <div class="talk-where">11th European Academy of Neurology Congress · Helsinki, Jun 2025</div>
+      <span class="talk-badge">Full Manuscript Under Review</span>
+    </div>
+    <div class="talk-card">
+      <div class="talk-type">Award</div>
+      <div class="talk-title">IMA-MSN National Chairman's Appreciation Award 2025</div>
+      <div class="talk-where">Indian Medical Association · Medical Students Network · 2025</div>
+      <span class="talk-badge">★ National Award</span>
+    </div>
+    <div class="talk-card">
+      <div class="talk-type">Symposium · Research Day</div>
+      <div class="talk-title">1st Position — Physiology Presentation</div>
+      <div class="talk-where">2nd Annual Research Day · AIIMS Rishikesh · Oct 2023</div>
+      <span class="talk-badge">★ 1st Position</span>
+    </div>
+    <div class="talk-card">
+      <div class="talk-type">Conference Nomination</div>
+      <div class="talk-title">Best Case Report — Poster Session</div>
+      <div class="talk-where">IASONZOCON 2025: North Zonal Surgical Oncology Conference · Feb 2025</div>
+      <span class="talk-badge">Nominated</span>
+    </div>
+    <div class="talk-card">
+      <div class="talk-type">Festival Direction</div>
+      <div class="talk-title">Core Organizer — Pyrexia 5.0</div>
+      <div class="talk-where">India's Largest Medical Festival · 12,000+ Students · Covered by The Tribune &amp; ANI</div>
+      <span class="talk-badge">$110K Budget</span>
+    </div>
   </div>
 </section>
 
@@ -620,58 +665,92 @@
   <div class="section-tag">Global Presence</div>
   <h2>International <em>Conferences</em><br>&amp; Presentations</h2>
   <div class="conf-timeline">
-
     <div class="conf-item">
       <div class="conf-date">Feb 4–6, 2026 · New Orleans, LA</div>
       <div class="conf-name">American Stroke Association — International Stroke Conference 2026</div>
       <div class="conf-detail">1 Poster · <a href="https://doi.org/10.1161/str.57.suppl_1.WP055" target="_blank">doi.org/10.1161/str.57.suppl_1.WP055</a></div>
       <span class="conf-badge">✦ 2026</span>
     </div>
-
     <div class="conf-item">
       <div class="conf-date">Nov 7–10, 2025 · New Orleans, LA</div>
       <div class="conf-name">American Heart Association Scientific Sessions 2025</div>
       <div class="conf-detail">1 Poster · <a href="https://doi.org/10.1161/circ.152.suppl_3.4370746" target="_blank">doi.org/10.1161/circ.152.suppl_3.4370746</a></div>
     </div>
-
     <div class="conf-item">
       <div class="conf-date">Oct 24–29, 2025 · Phoenix, AZ</div>
       <div class="conf-name">ACG Annual Scientific Meeting 2025</div>
       <div class="conf-detail">1 Poster · <a href="https://doi.org/10.14309/01.ajg.0001130060.47564.d4" target="_blank">doi.org/10.14309/01.ajg.0001130060.47564.d4</a></div>
     </div>
-
     <div class="conf-item">
       <div class="conf-date">Oct 17–21, 2025 · Berlin, Germany</div>
       <div class="conf-name">ESMO Congress 2025 — European Society for Medical Oncology</div>
       <div class="conf-detail">1 Poster · <a href="https://doi.org/10.1016/j.annonc.2025.08.1293" target="_blank">doi.org/10.1016/j.annonc.2025.08.1293</a></div>
     </div>
-
     <div class="conf-item">
       <div class="conf-date">Oct 12–15, 2025 · Seoul, South Korea</div>
       <div class="conf-name">XXVII World Congress of Neurology (WCN 2025)</div>
       <div class="conf-detail">4 Posters · <a href="https://doi.org/10.1016/j.jns.2025.125340" target="_blank">doi.org/10.1016/j.jns.2025.125340</a> and 3 more</div>
     </div>
-
     <div class="conf-item">
       <div class="conf-date">Sep 13–16, 2025 · Baltimore, MD</div>
       <div class="conf-name">150th Annual Meeting — American Neurological Association</div>
       <div class="conf-detail">5 Posters · <a href="https://doi.org/10.1002/ana.78015" target="_blank">doi.org/10.1002/ana.78015</a></div>
     </div>
-
     <div class="conf-item">
       <div class="conf-date">Jun 21–24, 2025 · Helsinki, Finland</div>
       <div class="conf-name">11th European Academy of Neurology Congress</div>
       <div class="conf-detail">8 Oral &amp; Posters · <a href="https://doi.org/10.1111/ene.70193" target="_blank">doi.org/10.1111/ene.70193</a></div>
       <span class="conf-badge">★ Best Podium Presentation</span>
     </div>
-
     <div class="conf-item">
       <div class="conf-date">Jul 28–29, 2025 · Rishikesh, India</div>
       <div class="conf-name">International Emergency Medicine Conference (EMPARV 2025)</div>
-      <div class="conf-detail">Podium Presentation at AIIMS Rishikesh</div>
+      <div class="conf-detail">Podium Presentation · AIIMS Rishikesh</div>
       <span class="conf-badge">★ Best Podium Presentation</span>
     </div>
+  </div>
+</section>
 
+<!-- INSTAGRAM GALLERY -->
+<section id="gallery">
+  <div class="gallery-header">
+    <div>
+      <div class="section-tag">Instagram</div>
+      <h2>From the <em>Field</em></h2>
+    </div>
+    <a href="https://www.instagram.com/tekin_tech/" target="_blank" class="ig-follow-btn">
+      &#x1F4F8; @tekin_tech
+    </a>
+  </div>
+  <div class="gallery-grid">
+    <!-- INSTRUCTIONS: Replace the 6 placeholder boxes below with your photos.
+         To add a photo: upload it to your GitHub repo alongside index.html,
+         then replace the placeholder div with:
+         <div class="gallery-item">
+           <img src="your-photo.jpg" alt="Caption">
+           <div class="gallery-item-overlay"><span>Caption</span></div>
+         </div>
+    -->
+    <div class="gallery-placeholder"><div class="ph-icon">📸</div>Add photo 1</div>
+    <div class="gallery-placeholder"><div class="ph-icon">📸</div>Add photo 2</div>
+    <div class="gallery-placeholder"><div class="ph-icon">📸</div>Add photo 3</div>
+    <div class="gallery-placeholder"><div class="ph-icon">📸</div>Add photo 4</div>
+    <div class="gallery-placeholder"><div class="ph-icon">📸</div>Add photo 5</div>
+    <div class="gallery-placeholder"><div class="ph-icon">📸</div>Add photo 6</div>
+  </div>
+  <p style="text-align:center;margin-top:2rem;font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;color:var(--dusty);">
+    Follow on Instagram for research updates, conference moments &amp; more →
+    <a href="https://www.instagram.com/tekin_tech/" target="_blank" style="color:var(--rust);text-decoration:none;margin-left:0.4rem;">@tekin_tech</a>
+  </p>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="section-tag">Blog &amp; Notes</div>
+  <h2>Research <em>Thoughts</em></h2>
+  <div class="blog-coming">
+    <p>Research commentaries, reading notes, and science writing — coming soon.</p>
+    <p style="margin-top:0.75rem;font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;color:var(--dusty);">Check back soon or follow <a href="https://www.instagram.com/tekin_tech/" target="_blank" style="color:var(--rust);text-decoration:none;">@tekin_tech</a> for updates.</p>
   </div>
 </section>
 
@@ -715,7 +794,6 @@
       </div>
     </div>
   </div>
-
   <div>
     <div class="section-tag">Memberships</div>
     <h2><em>Professional</em><br>Affiliations</h2>
@@ -726,14 +804,14 @@
       <div class="member-card"><div class="member-acronym">ASENT</div><div class="member-full">American Society for Experimental Neurotherapeutics</div></div>
       <div class="member-card"><div class="member-acronym">COPE</div><div class="member-full">Committee on Publication Ethics</div></div>
     </div>
-
     <div style="margin-top:3rem;">
       <div class="section-tag">Profiles</div>
-      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:1rem;">
-        <a href="https://orcid.org/0009-0004-5985-9757" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dusty);text-decoration:none;display:flex;align-items:center;gap:0.5rem;transition:color 0.2s;" onmouseover="this.style.color='var(--rust)'" onmouseout="this.style.color='var(--dusty)'">↗ ORCID: 0009-0004-5985-9757</a>
-        <a href="https://scholar.google.com/citations?user=y6ZojxwAAAAJ&hl=en&authuser=5" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dusty);text-decoration:none;display:flex;align-items:center;gap:0.5rem;transition:color 0.2s;" onmouseover="this.style.color='var(--rust)'" onmouseout="this.style.color='var(--dusty)'">↗ Google Scholar Profile</a>
-        <a href="https://www.researchgate.net/profile/Prateek-11" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dusty);text-decoration:none;display:flex;align-items:center;gap:0.5rem;transition:color 0.2s;" onmouseover="this.style.color='var(--rust)'" onmouseout="this.style.color='var(--dusty)'">↗ ResearchGate Profile</a>
-        <a href="https://www.linkedin.com/in/prateek-%E2%80%8E-0b0668341/" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dusty);text-decoration:none;display:flex;align-items:center;gap:0.5rem;transition:color 0.2s;" onmouseover="this.style.color='var(--rust)'" onmouseout="this.style.color='var(--dusty)'">↗ LinkedIn Profile</a>
+      <div class="profiles-col">
+        <a href="https://orcid.org/0009-0004-5985-9757" target="_blank">↗ ORCID: 0009-0004-5985-9757</a>
+        <a href="https://scholar.google.com/citations?user=y6ZojxwAAAAJ&hl=en&authuser=5" target="_blank">↗ Google Scholar Profile</a>
+        <a href="https://www.researchgate.net/profile/Prateek-11" target="_blank">↗ ResearchGate Profile</a>
+        <a href="https://www.linkedin.com/in/prateek-%E2%80%8E-0b0668341/" target="_blank">↗ LinkedIn Profile</a>
+        <a href="https://www.instagram.com/tekin_tech/" target="_blank">↗ Instagram @tekin_tech</a>
       </div>
     </div>
   </div>
@@ -747,17 +825,50 @@
   <a href="mailto:prateek.medsci@gmail.com" class="contact-email-link">prateek.medsci@gmail.com</a>
   <div class="contact-links">
     <a href="https://www.linkedin.com/in/prateek-%E2%80%8E-0b0668341/" target="_blank" class="contact-link">LinkedIn ↗</a>
+    <a href="https://www.instagram.com/tekin_tech/" target="_blank" class="contact-link ig">Instagram ↗</a>
     <a href="https://orcid.org/0009-0004-5985-9757" target="_blank" class="contact-link">ORCID ↗</a>
-    <a href="https://scholar.google.com/citations?user=y6ZojxwAAAAJ&hl=en&authuser=5" target="_blank" class="contact-link">Google Scholar ↗</a>
+    <a href="https://scholar.google.com/citations?user=y6ZojxwAAAAJ" target="_blank" class="contact-link">Google Scholar ↗</a>
     <a href="https://www.researchgate.net/profile/Prateek-11" target="_blank" class="contact-link">ResearchGate ↗</a>
     <a href="tel:+918629047962" class="contact-link">+91 86290 47962</a>
+    <a href="https://www.canva.com/design/DAGZRxI2eHA/bEr03oTViNbEnFg1bvhqKg/view?utm_content=DAGZRxI2eHA&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h556ca4d0bd" target="_blank" class="contact-link">Download CV ↗</a>
   </div>
 </section>
 
 <footer>
-  <p>© 2026 FNU Prateek · AIIMS Rishikesh, India</p>
+  <p>© 2026 FNU Prateek · AIIMS Rishikesh, Uttarakhand, India</p>
   <p>prateek.medsci@gmail.com · 202201079@aiimsrisikesh.edu.in</p>
 </footer>
 
+<script>
+  // ── DARK / LIGHT TOGGLE ──
+  const btn = document.getElementById("themeBtn");
+  function toggleTheme() {
+    const isDark = document.body.getAttribute("data-theme") === "dark";
+    document.body.setAttribute("data-theme", isDark ? "" : "dark");
+    btn.textContent = isDark ? "🌙" : "☀️";
+    localStorage.setItem("theme", isDark ? "light" : "dark");
+  }
+  // restore saved theme
+  const saved = localStorage.getItem("theme");
+  if (saved === "dark") { document.body.setAttribute("data-theme","dark"); btn.textContent = "☀️"; }
+
+  // ── HAMBURGER MENU ──
+  function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    const ham = document.getElementById("hamburger");
+    menu.classList.toggle("open");
+    ham.classList.toggle("open");
+  }
+  function closeMenu() {
+    document.getElementById("mobileMenu").classList.remove("open");
+    document.getElementById("hamburger").classList.remove("open");
+  }
+  // close menu on outside click
+  document.addEventListener("click", function(e) {
+    const menu = document.getElementById("mobileMenu");
+    const ham = document.getElementById("hamburger");
+    if (!menu.contains(e.target) && !ham.contains(e.target)) closeMenu();
+  });
+</script>
 </body>
 </html>
